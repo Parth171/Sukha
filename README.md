@@ -1,84 +1,22 @@
-# realTimeTranslator
-
-import openai
-
-import pyttsx3
-import speech_recognition as sr
-
-
-openai.api_key = "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"
+# Sukha - AI Therapist
 
 
 
+## Description
+Suhka - meaning peace and contentment in Sanskrit - is an AI Powered Therapist that utilizes the ChatGPT API to act as a virtual therapist for the user. The user can directly speak to Sukha, and the AI-powered Therapist will give a timely and concise response to the users inquires. 
 
 
-RECOGNIZER = sr.Recognizer()
+## Libraries
 
+For this project, the user will need to install the following libraries:
 
+* ``openai``
+* ```pyttsx3```
+* ```speech_recognition```
 
+## Running the Program
 
-def recordText():
-
-    while True:
-        try:
-            with sr.Microphone() as source2:
-                RECOGNIZER.adjust_for_ambient_noise(source2, duration=0.2)
-
-                AUDIO = RECOGNIZER.listen(source2)
-
-                TEXT = RECOGNIZER.recognize_google(AUDIO)
-
-                return TEXT
-
-        except sr.RequestError as e:
-            print("Could not require results;".format(e))
-
-        except sr.UnknownValueError:
-            print("Unknown Value Error")
-
-    return
-
-
-if __name__ == "__main__":
-
-    while True:
-
-
-
-        INPUT = recordText()
-
-        PROMPT = f"""
-
-        You are a AI Therapist named Sukha, which meaning contentment and peace in Sanskrit. Your job is to speak as if you are a therapist to the user. The user statement is delimited by triple back ticks. Keep your response under 30 words. 
-
-        User Statement: ```{INPUT}```
-
-        """
-
-        OUTPUT = openai.ChatCompletion.create(
-
-            model="gpt-3.5-turbo",
-            messages=[{"role": "user", "content": PROMPT}]
-        )
-
-        AI_TEXT = OUTPUT.choices[0].message["content"]
-
-
-        ENGINE = pyttsx3.init()
-        ENGINE.say(AI_TEXT)
-        ENGINE.runAndWait()
-
-
-
-
-
-
-
-
-
-
-
-
+To run this program, the user will simply need to run `main.py` file and start speaking to the AI therapist.
 
 
 
